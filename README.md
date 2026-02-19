@@ -59,7 +59,7 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000
 - **Swagger UI**: [http://localhost:8000/docs](http://localhost:8000/docs)
 - **ReDoc**: [http://localhost:8000/redoc](http://localhost:8000/redoc)
 
-## 🏗️ Структура проекта
+## Структура проекта
 
 ```
 backend/
@@ -81,7 +81,7 @@ backend/
 └── README.md
 ```
 
-## 📡 API Эндпоинты
+## API
 
 ### Health Check
 - `GET /api/v1/health` - Health cheak
