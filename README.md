@@ -131,12 +131,12 @@ curl http://localhost:8000/api/v1/telegram/test
 
 Или: [http://localhost:8000/api/v1/telegram/test](http://localhost:8000/api/v1/telegram/test)
 
-Этот эндпоинт покажет:
+Этот эндпоинт показывает:
 - Текущую конфигурацию Telegram
-- Отправит тестовое сообщение
-- Покажет ошибки, если они есть
+- Отправку тестового сообщения
+- Errors
 
-Также можно проверить конфигурацию:
+Проверка конфигурации:
 ```bash
 curl http://localhost:8000/api/v1/telegram/config
 ```
