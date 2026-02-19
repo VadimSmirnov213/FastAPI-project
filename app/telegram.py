@@ -8,15 +8,6 @@ TELEGRAM_API_URL = "https://api.telegram.org/bot"
 
 
 def send_telegram_message(message: str) -> bool:
-    """
-    Отправляет сообщение в Telegram
-    
-    Args:
-        message: Текст сообщения для отправки
-        
-    Returns:
-        True если сообщение отправлено успешно, False в противном случае
-    """
     logger.info(f"Attempting to send Telegram message. Enabled: {settings.telegram_enabled}")
     
     if not settings.telegram_enabled:
@@ -43,7 +34,6 @@ def send_telegram_message(message: str) -> bool:
         
         response = requests.post(url, json=payload, timeout=10)
         
-        # Логируем ответ для отладки
         logger.info(f"Telegram API response status: {response.status_code}")
         
         if response.status_code != 200:
@@ -79,23 +69,14 @@ def send_telegram_message(message: str) -> bool:
 
 
 def format_contact_message(contact_data: dict) -> str:
-    """
-    Форматирует данные контакта в сообщение для Telegram
-    
-    Args:
-        contact_data: Словарь с данными контакта
-        
-    Returns:
-        Отформатированное сообщение
-    """
-    message = "🔔 <b>Новая заявка с сайта</b>\n\n"
-    message += f"👤 <b>Имя:</b> {contact_data.get('name', 'Не указано')}\n"
-    message += f"📧 <b>Email:</b> {contact_data.get('email', 'Не указано')}\n"
+    message = "<b>Новая заявка с сайта</b>\n\n"
+    message += f"<b>Имя:</b> {contact_data.get('name', 'Не указано')}\n"
+    message += f"<b>Email:</b> {contact_data.get('email', 'Не указано')}\n"
     
     if contact_data.get('phone'):
-        message += f"📱 <b>Телефон:</b> {contact_data.get('phone')}\n"
+        message += f"<b>Телефон:</b> {contact_data.get('phone')}\n"
     
-    message += f"\n💬 <b>Сообщение:</b>\n{contact_data.get('message', 'Не указано')}"
+    message += f"\n<b>Сообщение:</b>\n{contact_data.get('message', 'Не указано')}"
     
     return message
 

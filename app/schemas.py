@@ -3,7 +3,6 @@ from typing import Optional, List
 from datetime import datetime
 
 
-# Project Schemas
 class ProjectBase(BaseModel):
     title: str = Field(..., min_length=1, max_length=200)
     description: str = Field(..., min_length=1)
@@ -43,7 +42,6 @@ class ProjectResponse(ProjectBase):
         from_attributes = True
 
 
-# Contact Schemas
 class ContactBase(BaseModel):
     name: str = Field(..., min_length=1, max_length=100)
     email: EmailStr
@@ -64,7 +62,6 @@ class ContactResponse(ContactBase):
         from_attributes = True
 
 
-# Health Check
 class HealthResponse(BaseModel):
     status: str
     message: str

@@ -4,7 +4,6 @@ from app.database import Base
 
 
 class Project(Base):
-    """Модель проекта в портфолио"""
     __tablename__ = "projects"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -13,7 +12,7 @@ class Project(Base):
     long_description = Column(Text, nullable=True)
     category = Column(String(100), nullable=False)
     year = Column(String(4), nullable=False)
-    tags = Column(String(500), nullable=True)  # JSON строка или разделенные запятыми
+    tags = Column(String(500), nullable=True)  
     image_url = Column(String(500), nullable=True)
     link = Column(String(500), nullable=True)
     github = Column(String(500), nullable=True)
@@ -23,7 +22,6 @@ class Project(Base):
 
 
 class Contact(Base):
-    """Модель контактной формы"""
     __tablename__ = "contacts"
 
     id = Column(Integer, primary_key=True, index=True)
