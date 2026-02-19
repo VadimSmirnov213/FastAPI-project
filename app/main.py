@@ -5,7 +5,7 @@ from app.config import settings
 from app.database import init_db
 from app.api import projects, contacts, health, telegram_test
 
-# Настройка логирования
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"

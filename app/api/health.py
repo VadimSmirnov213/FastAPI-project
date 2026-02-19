@@ -6,7 +6,6 @@ router = APIRouter(tags=["health"])
 
 @router.get("/health", response_model=schemas.HealthResponse)
 def health_check():
-    """Проверка здоровья API"""
     return schemas.HealthResponse(
         status="ok",
         message="API is running"

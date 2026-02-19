@@ -8,7 +8,6 @@ router = APIRouter(prefix="/projects", tags=["projects"])
 
 
 def _convert_tags_to_list(project: models.Project) -> models.Project:
-    """Преобразует tags из строки в список для ответа"""
     if project.tags:
         project.tags = project.tags.split(",") if isinstance(project.tags, str) else project.tags
     return project
@@ -22,7 +21,6 @@ def get_projects(
     featured: Optional[bool] = None,
     db: Session = Depends(get_database)
 ):
-    """Получить список проектов"""
     query = db.query(models.Project)
     
     if category:
@@ -32,7 +30,6 @@ def get_projects(
         query = query.filter(models.Project.is_featured == featured)
     
     projects = query.order_by(models.Project.created_at.desc()).offset(skip).limit(limit).all()
-    # Преобразуем tags для каждого проекта
     for project in projects:
         _convert_tags_to_list(project)
     return projects
@@ -40,7 +37,6 @@ def get_projects(
 
 @router.get("/{project_id}", response_model=schemas.ProjectResponse)
 def get_project(project_id: int, db: Session = Depends(get_database)):
-    """Получить проект по ID"""
     project = db.query(models.Project).filter(models.Project.id == project_id).first()
     if not project:
         raise HTTPException(
@@ -53,7 +49,6 @@ def get_project(project_id: int, db: Session = Depends(get_database)):
 
 @router.post("/", response_model=schemas.ProjectResponse, status_code=status.HTTP_201_CREATED)
 def create_project(project: schemas.ProjectCreate, db: Session = Depends(get_database)):
-    """Создать новый проект"""
     db_project = models.Project(
         title=project.title,
         description=project.description,
@@ -80,7 +75,6 @@ def update_project(
     project_update: schemas.ProjectUpdate,
     db: Session = Depends(get_database)
 ):
-    """Обновить проект"""
     db_project = db.query(models.Project).filter(models.Project.id == project_id).first()
     if not db_project:
         raise HTTPException(
@@ -105,7 +99,6 @@ def update_project(
 
 @router.delete("/{project_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_project(project_id: int, db: Session = Depends(get_database)):
-    """Удалить проект"""
     db_project = db.query(models.Project).filter(models.Project.id == project_id).first()
     if not db_project:
         raise HTTPException(

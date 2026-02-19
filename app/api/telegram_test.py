@@ -9,8 +9,6 @@ router = APIRouter(prefix="/telegram", tags=["telegram"])
 
 @router.get("/test")
 def test_telegram():
-    """Тестовый эндпоинт для проверки отправки сообщений в Telegram"""
-    # Проверяем настройки
     config_status = {
         "telegram_enabled": settings.telegram_enabled,
         "has_bot_token": bool(settings.telegram_bot_token),
@@ -39,8 +37,8 @@ def test_telegram():
             }
         }
     
-    # Пытаемся отправить тестовое сообщение
-    test_message = "🧪 <b>Тестовое сообщение</b>\n\nЭто тестовое сообщение для проверки работы Telegram интеграции."
+
+    test_message = "<b>Тестовое сообщение</b>\n\nЭто тестовое сообщение для проверки работы Telegram интеграции."
     
     success = send_telegram_message(test_message)
     
@@ -66,7 +64,6 @@ def test_telegram():
 
 @router.get("/config")
 def get_telegram_config():
-    """Получить текущую конфигурацию Telegram (без секретных данных)"""
     return {
         "telegram_enabled": settings.telegram_enabled,
         "has_bot_token": bool(settings.telegram_bot_token),

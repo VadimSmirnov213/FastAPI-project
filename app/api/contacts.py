@@ -12,7 +12,6 @@ router = APIRouter(prefix="/contacts", tags=["contacts"])
 
 @router.post("/", response_model=schemas.ContactResponse, status_code=status.HTTP_201_CREATED)
 def create_contact(contact: schemas.ContactCreate, db: Session = Depends(get_database)):
-    """Создать новое обращение из контактной формы"""
     db_contact = models.Contact(
         name=contact.name,
         email=contact.email,
@@ -38,7 +37,6 @@ def create_contact(contact: schemas.ContactCreate, db: Session = Depends(get_dat
         else:
             logger.warning("Failed to send Telegram notification (check logs above for details)")
     except Exception as e:
-        # Логируем ошибку, но не прерываем выполнение
         logger.error(f"Exception while sending Telegram notification: {e}", exc_info=True)
     
     return db_contact
@@ -51,7 +49,6 @@ def get_contacts(
     unread_only: bool = False,
     db: Session = Depends(get_database)
 ):
-    """Получить список обращений (для админки)"""
     query = db.query(models.Contact)
     
     if unread_only:
@@ -63,7 +60,6 @@ def get_contacts(
 
 @router.get("/{contact_id}", response_model=schemas.ContactResponse)
 def get_contact(contact_id: int, db: Session = Depends(get_database)):
-    """Получить обращение по ID"""
     contact = db.query(models.Contact).filter(models.Contact.id == contact_id).first()
     if not contact:
         raise HTTPException(
@@ -75,7 +71,6 @@ def get_contact(contact_id: int, db: Session = Depends(get_database)):
 
 @router.patch("/{contact_id}/read", response_model=schemas.ContactResponse)
 def mark_as_read(contact_id: int, db: Session = Depends(get_database)):
-    """Отметить обращение как прочитанное"""
     contact = db.query(models.Contact).filter(models.Contact.id == contact_id).first()
     if not contact:
         raise HTTPException(
@@ -91,7 +86,6 @@ def mark_as_read(contact_id: int, db: Session = Depends(get_database)):
 
 @router.delete("/{contact_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_contact(contact_id: int, db: Session = Depends(get_database)):
-    """Удалить обращение"""
     contact = db.query(models.Contact).filter(models.Contact.id == contact_id).first()
     if not contact:
         raise HTTPException(
