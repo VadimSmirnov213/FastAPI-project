@@ -129,7 +129,7 @@ DATABASE_URL=postgresql://user:password@localhost/dbname
 curl http://localhost:8000/api/v1/telegram/test
 ```
 
-Или откройте в браузере: [http://localhost:8000/api/v1/telegram/test](http://localhost:8000/api/v1/telegram/test)
+Или: [http://localhost:8000/api/v1/telegram/test](http://localhost:8000/api/v1/telegram/test)
 
 Этот эндпоинт покажет:
 - Текущую конфигурацию Telegram
@@ -141,38 +141,8 @@ curl http://localhost:8000/api/v1/telegram/test
 curl http://localhost:8000/api/v1/telegram/config
 ```
 
-### Устранение проблем
 
-Если сообщения не приходят:
-
-1. **Проверьте логи сервера** - там будут детальные сообщения об ошибках
-2. **Проверьте .env файл** - убедитесь, что все переменные установлены правильно
-3. **Убедитесь, что вы начали диалог с ботом** - отправьте боту `/start`
-4. **Проверьте Chat ID** - он должен быть числом, не username
-5. **Используйте тестовый эндпоинт** - `/api/v1/telegram/test` покажет точную причину проблемы
-
-## 🔗 Интеграция с фронтендом
-
-Фронтенд должен отправлять запросы на `http://localhost:8000/api/v1/...`
-
-Пример настройки в Next.js:
-```typescript
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
-```
-
-## 🧪 Тестирование
-
-Для тестирования API можно использовать:
-
-1. **Swagger UI** - [http://localhost:8000/docs](http://localhost:8000/docs)
-2. **curl**:
-```bash
-curl http://localhost:8000/api/v1/health
-```
-
-3. **HTTP клиенты** (Postman, Insomnia, etc.)
-
-## 📝 Примеры запросов
+## Примеры запросов
 
 ### Создать проект
 ```bash
@@ -180,7 +150,7 @@ curl -X POST "http://localhost:8000/api/v1/projects" \
   -H "Content-Type: application/json" \
   -d '{
     "title": "E-commerce платформа",
-    "description": "Современная платформа для онлайн-торговли",
+    "description": "Платформа",
     "category": "Веб-разработка",
     "year": "2024",
     "tags": ["Next.js", "TypeScript", "Stripe"]
@@ -192,24 +162,9 @@ curl -X POST "http://localhost:8000/api/v1/projects" \
 curl -X POST "http://localhost:8000/api/v1/contacts" \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "Иван Иванов",
+    "name": "Name Name",
     "email": "ivan@example.com",
     "phone": "+7 (999) 123-45-67",
-    "message": "Хочу обсудить проект"
+    "message": "mess"
   }'
-```
-
-## 🚀 Деплой
-
-Для production рекомендуется:
-
-1. Использовать PostgreSQL вместо SQLite
-2. Настроить переменные окружения
-3. Использовать ASGI сервер (Gunicorn + Uvicorn workers)
-4. Настроить reverse proxy (Nginx)
-5. Включить HTTPS
-
-Пример запуска с Gunicorn:
-```bash
-gunicorn app.main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 ```
