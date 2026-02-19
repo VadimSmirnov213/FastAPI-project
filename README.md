@@ -113,7 +113,7 @@ DATABASE_URL=postgresql://user:password@localhost/dbname
 
 ## Настройка
 
-Все настройки можно изменить в файле `.env`:
+Все настройки изменяются в файле `.env`:
 
 - `DATABASE_URL` - URL базы данных
 - `CORS_ORIGINS` - Разрешенные источники для CORS
@@ -123,7 +123,7 @@ DATABASE_URL=postgresql://user:password@localhost/dbname
 
 ### Проверка работы Telegram
 
-После настройки проверьте работу через тестовый эндпоинт:
+После настройки проверка работы через тестовый эндпоинт:
 
 ```bash
 curl http://localhost:8000/api/v1/telegram/test
